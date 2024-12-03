@@ -21,7 +21,6 @@ app = FastAPI()
 @app.post("/read_plate")
 def read_plate_endpoint(img: UploadFile = File(...)):
     try:
-        # Read the image content directly into a numpy array
         contents = img.file.read()
         nparr = np.frombuffer(contents, np.uint8)
         image = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
@@ -35,6 +34,6 @@ def read_plate_endpoint(img: UploadFile = File(...)):
     except Exception as e:
         return {"error": f"Error processing image: {str(e)}"}
 
-
 if __name__ == "__main__":
-    uvicorn.run(app, host="localhost", port=8000)
+    port = int(os.environ.get("PORT", 8000)) 
+    uvicorn.run(app, host="0.0.0.0", port=port)
