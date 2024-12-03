@@ -1,0 +1,7 @@
+gunicorn
+os
+cv2
+uvicorn
+fastapi
+character_recognition
+plate_detection
